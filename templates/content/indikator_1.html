@@ -1,0 +1,226 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock %}
+{% block content %}
+    <h1>Indikator 1</h1>
+
+    <div data-label="" class="df-example">
+        <div class="row">
+            <div class="col-lg">
+                <div class="pd-y-10 pd-x-20 bg-ui-01 mg-b-auto">
+                    <p>Modal Usaha Produktif</p>
+                    Indikator:
+                    <ul>
+                        <li>Modal Usaha Minimal Rp.50.000.000,-;</li>
+                        <li>Pendapatan Usaha Sampai Dengan Rp.300.000.000,-;</li>
+                        <li>Kepemilikan Akun Rekening Syariah.</li>
+                    </ul>
+
+                </div>
+                <hr>
+                <form method="post" action="#" id="pertanyaan">
+                    <h3>Pertanyaaan</h3>
+                    <div class="form-group row">
+                        <div class="col-lg">
+                            <label class="col-form-label col-lg pt-0">1. Apakah pondok pesantren memiliki modal usaha
+                                minimal Rp.50.000.000?</label>
+                            <div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio1" name="modal"
+                                           class="custom-control-input" value="yes" required>
+                                    <label class="custom-control-label" for="customRadio1">Yes</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="customRadio2" name="modal"
+                                           class="custom-control-input" value="no" required>
+                                    <label class="custom-control-label" for="customRadio2">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <label class="col-form-label col-lg pt-0">2. Apakah pondok pesantren memiliki pendapatan
+                                usaha hingga Rp. 300.000.000?</label>
+                            <div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="modalyes" name="pendapatan"
+                                           class="custom-control-input" value="yes" required>
+                                    <label class="custom-control-label" for="modalyes">Yes</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="modalno" name="pendapatan"
+                                           class="custom-control-input" value="no" required>
+                                    <label class="custom-control-label" for="modalno">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <label class="col-form-label col-lg pt-0">1. Apakah pondok pesantren memiliki akun rekening
+                                syariah ?</label>
+                            <div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="akunyes" name="akun"
+                                           class="custom-control-input" value="yes" required>
+                                    <label class="custom-control-label" for="akunyes">Yes</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="akunno" name="akun"
+                                           class="custom-control-input" value="no" required>
+                                    <label class="custom-control-label" for="akunno">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="button" value="Submit" class="btn btn-primary" onclick="captureAnswer()">
+                </form>
+            </div>
+
+        </div><!-- row -->
+    </div><!-- df-example -->
+    {#modal sukses#}
+    <div class="modal fade" id="resultModalSuccess" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultModalLabel">Result</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {#                    <p id="result"></p>#}
+                    <p>Anda akan menuju indikator selanjutnya</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"
+                            onclick="window.location.href='{% url "ekonomi:indikator2" %}'" data-dismiss="modal">Pindah
+                        ke indikator selanjutnya
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#modal kurang#}
+    <div class="modal fade" id="resultModalMid" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultModalLabel">Hasil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6>Skema pemberian bantuan: </h6>
+                    <div class="container">
+                        <div class="row">
+                            <div class="row-md-6">
+                                <p>Skema bantuan untuk pesantren dengan santri mukim dan unit usaha</p>
+                                <ul>
+                                    <li>Beasiswa bagi santri</li>
+                                    <li>Pelatihan dan pendampingan</li>
+                                </ul>
+                            </div>
+                            <div class="row-md-6">
+                                <p>Skema bantuan untuk pesantren tanpa santri mukim tetapi memiliki unit usaha</p>
+                                <ul>
+                                    <li>Pelatihan kewirausahan bagi manajemen unit usaha</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary"
+                            onclick="window.location.href='{% url "ekonomi:indikator2" %}'" data-dismiss="modal">Pindah
+                        ke indikator selanjutnya
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#modal gagal#}
+    <div class="modal fade" id="resultModalFailed" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultModalLabel">Hasil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {#                    <p id="result"></p>#}
+                    <p>Pemberian bantuan kepada santri pondok dengan tipe salafiyah</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        // Get the modal
+        var modal = document.getElementById("resultModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        function captureAnswer() {
+            var modaluang = document.querySelector('input[name="modal"]:checked');
+            var pendapatan = document.querySelector('input[name="pendapatan"]:checked');
+            var akun = document.querySelector('input[name="akun"]:checked');
+
+            {#var result = "";#}
+            if (modaluang && pendapatan && akun) {
+                if (modaluang.value === "yes" && pendapatan.value === "yes" && akun.value === "yes") {
+                    {#result = "1";#}
+                    $("#resultModalSuccess").modal();
+                } else if (modaluang.value === "yes" && pendapatan.value === "no" && akun.value === "yes") {
+                    $("#resultModalMid").modal();
+                } else if (modaluang.value === "yes" && pendapatan.value === "no" && akun.value === "no") {
+                    {#result = "3";#}
+                    $("#resultModalMid").modal();
+                } else if (modaluang.value === "no" && pendapatan.value === "no" && akun.value === "no") {
+                    {#result = "2";#}
+                    $("#resultModalFailed").modal();
+                }
+            } else {
+                alert("Cek isian terlebih dahulu");
+
+            }
+
+            console.log("Group 1: " + modaluang.value + ", Group 2: " + pendapatan.value + ", Group 3: " + akun.value)
+            {#document.getElementById("result").innerHTML = result;#}
+            {#$('#resultModal').modal('show');#}
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
+    </script>
+{% endblock %}
+
+
