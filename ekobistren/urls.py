@@ -10,6 +10,7 @@ urlpatterns = [
     path('indikator4', Indikator4View.as_view(), name='indikator4'),
     path('indikator5', Indikator5View.as_view(), name='indikator5'),
     path('indikator6', Indikator6View.as_view(), name='indikator6'),
+    path('indikator7', Indikator7View.as_view(), name='indikator7'),
 
     # path('notifications/', NotificationListView.as_view(), name='notifications'),
     # re_path('mark-as-read/(?P<slug>\d+)/$', mark_as_read, name='mark_as_read'),

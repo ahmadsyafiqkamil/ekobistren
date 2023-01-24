@@ -29,3 +29,6 @@ class Indikator5View(generic.TemplateView):
 
 class Indikator6View(generic.TemplateView):
     template_name = 'content/indikator_6.html'
+
+class Indikator7View(generic.TemplateView):
+    template_name = 'content/indikator_7.html'
