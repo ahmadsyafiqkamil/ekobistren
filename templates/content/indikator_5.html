@@ -4,16 +4,16 @@
 
 {% endblock %}
 {% block content %}
-    <h1>Indikator 3</h1>
+    <h1>Indikator 4</h1>
 
     <div data-label="" class="df-example">
         <div class="row">
             <div class="col-lg">
                 <div class="pd-y-10 pd-x-20 bg-ui-01 mg-b-auto">
-                    <p>Ragam produk unit usaha</p>
+                    <p>Ketersediaan bahan baku</p>
                     Indikator:
                     <ul>
-                        <li>Terdapat > 1 Ragam Produk Usaha</li>
+                        <li>Keterhubungan Dengan Supplier</li>
                     </ul>
                 </div>
                 <hr>
@@ -21,8 +21,8 @@
                     <h3>Pertanyaaan</h3>
                     <div class="form-group row">
                         <div class="col-lg">
-                            <label class="col-form-label col-lg pt-0">1. Apakah pondok pesantren memiliki lebih dari 1
-                                ragam produk usaha?</label>
+                            <label class="col-form-label col-lg pt-0">1. Apakah pondok pesantren memiliki keterhubungan
+                                dengan supplier?</label>
                             <div>
                                 <div class="custom-control custom-radio">
                                     <input type="radio" id="customRadio1" name="ind1"
@@ -59,7 +59,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='{% url "ekonomi:indikator4" %}'" data-dismiss="modal">Pindah
+                            onclick="window.location.href='{% url "ekonomi:indikator5" %}'" data-dismiss="modal">Pindah
                         ke indikator selanjutnya
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='{% url "ekonomi:indikator4" %}'" data-dismiss="modal">Pindah
+                            onclick="window.location.href='{% url "ekonomi:indikator5" %}'" data-dismiss="modal">Pindah
                         ke indikator selanjutnya
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -151,7 +151,6 @@
 
             }
 
-            {#console.log("Group 1: " + ind1.value + ", Group 2: " + ind2.value)#}
         }
 
         // When the user clicks on <span> (x), close the modal
