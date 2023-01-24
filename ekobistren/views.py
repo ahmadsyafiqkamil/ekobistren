@@ -15,11 +15,17 @@ class Indikator1View(generic.TemplateView):
 class Indikator2View(generic.TemplateView):
     template_name = 'content/indikator_2.html'
 
+
 class Indikator3View(generic.TemplateView):
     template_name = 'content/indikator_3.html'
+
 
 class Indikator4View(generic.TemplateView):
     template_name = 'content/indikator_4.html'
 
+
 class Indikator5View(generic.TemplateView):
     template_name = 'content/indikator_5.html'
+
+class Indikator6View(generic.TemplateView):
+    template_name = 'content/indikator_6.html'
