@@ -4,24 +4,31 @@
 
 {% endblock %}
 {% block content %}
-    <h1>Indikator 6</h1>
+    <h1>Indikator 7</h1>
 
     <div data-label="" class="df-example">
         <div class="row">
             <div class="col-lg">
                 <div class="pd-y-10 pd-x-20 bg-ui-01 mg-b-auto">
-                    <p>Keterhubungan Dengan Pelanggan Potensial</p>
+                    <p>Ketersediaan Sarana Pengaduan</p>
                     Indikator:
                     <ul>
-                        <li>Ketersediaan Captive Market</li>
+                        <li>Ketersediaan Kotak Saran Terkait Produk</li>
+                        <li>Pemberdayaan ke Masyarakat Sekitar (Lapangan Kerja Tercipta Dari Unit Usaha Pondok
+                            Pesantren)*
+                        </li>
                     </ul>
+                    Keterangan:
+                    *) Masyarakat sekitar yang terlibat harus memiliki akun rekening syariah
+
                 </div>
                 <hr>
                 <form method="post" action="#" id="pertanyaan">
                     <h3>Pertanyaaan</h3>
                     <div class="form-group row">
                         <div class="col-lg">
-                            <label class="col-form-label col-lg pt-0">1. Apakah pondok pesantren memiliki hubungan dengan pelanggan potensial?</label>
+                            <label class="col-form-label col-lg pt-0">1. Apakah pondok pesantren memiliki ketersediaan
+                                kotak saran terkait produk?</label>
                             <div>
                                 <div class="custom-control custom-radio">
                                     <input type="radio" id="customRadio1" name="ind1"
@@ -32,6 +39,23 @@
                                     <input type="radio" id="customRadio2" name="ind1"
                                            class="custom-control-input" value="no" required>
                                     <label class="custom-control-label" for="customRadio2">No</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg">
+                            <label class="col-form-label col-lg pt-0">2. Apakah pondok pesantren melakukan pemberdayaan
+                                kepada masyarakat sekitar?</label>
+                            <div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="modalyes" name="ind2"
+                                           class="custom-control-input" value="yes" required>
+                                    <label class="custom-control-label" for="modalyes">Yes</label>
+                                </div>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="modalno" name="ind2"
+                                           class="custom-control-input" value="no" required>
+                                    <label class="custom-control-label" for="modalno">No</label>
                                 </div>
                             </div>
                         </div>
@@ -54,13 +78,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Silahkan menuju ke indikator selanjutnya</p>
+                    <p>UNIT USAHA DAPAT MENDORONG KEMANDIRIAN EKONOMI PONDOK PESANTREN</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='{% url "ekonomi:indikator7" %}'" data-dismiss="modal">Pindah
-                        ke indikator selanjutnya
-                    </button>
+
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -79,40 +100,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h6>Skema pemberian bantuan: </h6>
-                    <div class="container">
-                        <div class="row">
-                            <div class="row-md-6">
-                                <p>Skema bantuan untuk pesantren dengan unit usaha pesantren dengan >1 ragam produk
-                                    usaha</p>
-                                <ul>
-                                    <li>Administrasi Kontrak Kerjasama Dengan Pelanggan Potensial, termasuk dengan Unit Usaha Pondok Pesantren Lain Yang Lebih Besar</li>
-                                    <li>Dukungan BUMN/BUMD Untuk Menyerap Produk Unit Usaha</li>
-                                </ul>
-                            </div>
-                            <div class="row-md-6">
-                                <p>Skema bantuan untuk pesantren dengan unit usaha pesantren dengan 1 ragam produk usaha
-                                    (Non KSP)</p>
-                                <ul>
-                                    <li>Administrasi Kontrak Kerjasama Dengan Pelanggan Potensial, termasuk dengan Unit Usaha Pondok Pesantren Lain Yang Lebih Besar</li>
-                                    <li>Dukungan BUMN/BUMD Untuk Menyerap Produk Unit Usaha</li>
-                                </ul>
-                            </div>
-                            <div class="row-md-6">
-                                <p>Skema bantuan untuk pesantren dengan unit usaha pesantren dengan 1 ragam produk usaha
-                                    (KSP)</p>
-                                <ul>
-                                    <li>Tidak Diberikan Bantuan Tambahan</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <p>UNIT USAHA TIDAK MENUNJUKKAN KOMITMEN PERBAIKAN BERKELANJUTAN DAN DUKUNGANNYA TERHADAP LINGKUNGAN
+                        SEKITAR, MAKA DAPAT DIPERTIMBANGKAN UNTUK PENGHENTIAN PEMBERIAN BANTUAN DI KEMUDIAN HARI</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='{% url "ekonomi:indikator7" %}'" data-dismiss="modal">Pindah
-                        ke indikator selanjutnya
-                    </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -131,9 +122,14 @@
 
         function captureAnswer() {
             var ind1 = document.querySelector('input[name="ind1"]:checked');
+            var ind2 = document.querySelector('input[name="ind2"]:checked');
 
-            if (ind1) {
-                if (ind1.value === "yes") {
+            if (ind1 && ind2) {
+                if (ind1.value === "yes" && ind2.value === "yes") {
+                    $("#resultModalSuccess").modal();
+                } else if (ind1.value === "yes" && ind2.value === "no") {
+                    $("#resultModalSuccess").modal();
+                } else if (ind1.value === "no" && ind2.value === "yes") {
                     $("#resultModalSuccess").modal();
                 } else {
                     $("#resultModalFailed").modal();
