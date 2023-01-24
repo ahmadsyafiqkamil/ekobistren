@@ -4,7 +4,7 @@
 
 {% endblock %}
 {% block content %}
-    <h1>Indikator 2</h1>
+    <h1>Indikator 1</h1>
 
     <div data-label="" class="df-example">
         <div class="row">
@@ -81,7 +81,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='{% url "ekonomi:indikator3" %}'" data-dismiss="modal">Pindah
+                            onclick="window.location.href='{% url "ekonomi:indikator2" %}'" data-dismiss="modal">Pindah
                         ke indikator selanjutnya
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -103,7 +103,7 @@
                 </div>
                 <div class="modal-body">
                     {#                    <p id="result"></p>#}
-                    <p>Mohon maaf kami belum dapat memberikan bantuan kepada pondok pesantren</p>
+                    <p>Pemberian bantuan kepada santri pondok dengan tipe salafiyah</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -123,8 +123,8 @@
         var span = document.getElementsByClassName("close")[0];
 
         function captureAnswer() {
-            var ind1 = document.querySelector('input[name="ind1"]:checked');
-            var ind2 = document.querySelector('input[name="ind2"]:checked');
+            var ind1 = document.querySelector('input[name="modal"]:checked');
+            var ind2 = document.querySelector('input[name="pendapatan"]:checked');
 
             if (ind1 && ind2) {
                 if (ind1.value === "yes" && ind2.value === "yes") {
