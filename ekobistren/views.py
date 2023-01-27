@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import generic
 from .forms import PondokForm
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -8,6 +9,10 @@ from .forms import PondokForm
 class HomeView(generic.edit.CreateView):
     template_name = 'content/home.html'
     form_class = PondokForm
+    success_url = reverse_lazy('ekonomi:indikator1')
+
+    # def form_valid(self, form):
+
 
 
 class Indikator1View(generic.TemplateView):
