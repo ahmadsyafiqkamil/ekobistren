@@ -6,12 +6,16 @@ from django.urls import reverse_lazy
 
 # Create your views here.
 
-class HomeView(generic.edit.CreateView):
-    template_name = 'content/home.html'
+class DaftarPondok(generic.edit.CreateView):
+    template_name = 'content/daftar_pondok.html'
     form_class = PondokForm
-    success_url = reverse_lazy('ekonomi:indikator1')
+    success_url = reverse_lazy('ekonomi:data_pondok')
 
-    # def form_valid(self, form):
+
+
+
+class DataPondok(generic.TemplateView):
+    template_name = 'content/data_pondok.html'
 
 
 

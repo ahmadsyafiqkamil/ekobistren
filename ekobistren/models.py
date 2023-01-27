@@ -19,6 +19,7 @@ class ciri_ciri(models.Model):
     def __str__(self):
         return self.ciri
 
+
 class hasil_no(models.Model):
     indikator = models.ForeignKey(indikator, models.CASCADE, related_name="id_indikator")
     # hasil_no = models.CharField(max_length=200, verbose_name='Hasil No')
@@ -37,7 +38,7 @@ class pondok(models.Model):
     nama_pondok = models.CharField(max_length=200, verbose_name='Nama Pondok')
     kepala_pondok = models.CharField(max_length=200, verbose_name="Pengasuh Pondok")
     alamat = models.TextField(verbose_name="Alamat Pondok")
-    status = models.IntegerField(verbose_name="Status Pondok", null=True, blank=True)
+    status = models.IntegerField(verbose_name="Status Pondok", null=True, blank=True, default=0)
 
     def __str__(self):
         return self.nama_pondok
