@@ -12,15 +12,19 @@ class DaftarPondok(generic.edit.CreateView):
     success_url = reverse_lazy('ekonomi:data_pondok')
 
 
-
-
 class DataPondok(generic.TemplateView):
     template_name = 'content/data_pondok.html'
 
 
-
 class Indikator1View(generic.TemplateView):
     template_name = 'content/indikator_1.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super(Indikator1View, self).get_context_data(**kwargs)
+        print(kwargs["pk"])
+        context_data["pk_user"] = kwargs["pk"]
+
+        return context_data
 
 
 class Indikator2View(generic.TemplateView):
