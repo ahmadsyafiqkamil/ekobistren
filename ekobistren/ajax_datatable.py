@@ -16,11 +16,34 @@ class PondokAjaxView(AjaxDatatableView):
         {'name': 'nama_pondok', 'title': "Nama Pondok", 'visible': True, },
         {'name': 'kepala_pondok', 'title': "Nama Pengasuh Pondok", 'visible': True, },
         {'name': 'alamat', 'visible': True, 'title': 'Alamat Pondok', },
-        {'name': 'status', 'title': "Status Pondok", 'visible': True, 'orderable': True, },
+        {'name': 'status_pondok', 'title': "Status Pondok", 'visible': True, 'orderable': True, },
         {'name': 'action', 'title': 'Aksi', 'searchable': False, 'orderable': False, },
     ]
 
     def customize_row(self, row, obj):
+        # print()
+        status_pondok = pondok.objects.get(pk=row['pk']).status
+        match status_pondok:
+
+            case 0:
+                status = "Belum pernah melakukan evaluasi"
+            case 1:
+                status = "Indikator 1"
+            case 2:
+                status = "Indikator 2"
+            case 3:
+                status = "Indikator 3"
+            case 4:
+                status = "Indikator 4"
+            case 5:
+                status = "Indikator 5"
+            case 6:
+                status = "Indikator 6"
+            case 7:
+                status = "Indikator 7"
+
+        row['status_pondok'] = status
+
         row['action'] = f"""
                                         <a href="#" class="btn btn-primary" id="add" 
                                             onclick="detail('{row['pk']}'); " >
