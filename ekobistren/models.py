@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -27,6 +28,13 @@ class rute(models.Model):
 
 class pondok(models.Model):
     nama_pondok = models.CharField(max_length=200, verbose_name='Nama Pondok')
+    kepala_pondok = models.CharField(max_length=200, verbose_name="Pengasuh Pondok")
+    alamat = models.TextField(verbose_name="Alamat Pondok")
+    status = models.IntegerField(verbose_name="Status Pondok")
 
     def __str__(self):
         return self.nama_pondok
+
+
+class evaluasi_pondok(models.Model):
+    pondok = models.ForeignKey(pondok, models.CASCADE, related_name="pondok")

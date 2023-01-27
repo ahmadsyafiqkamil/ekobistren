@@ -1,24 +1,32 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block css %}
-
+    <link href="{% static 'lib/select2/css/select2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/ion-rangeslider/css/ion.rangeSlider.min.css' %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
     <h1>Indikator</h1>
 
-    <div data-label="Example" class="df-example">
-        <div class="row">
-            <div class="col-lg">
-                <div class="pd-y-10 pd-x-20 bg-ui-01">One of three columns</div>
-            </div>
+    <form action="" method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <div class="form-row">
 
-        </div><!-- row -->
-    </div><!-- df-example -->
+            <div class="form-group col-lg-6">
+                {% for i in form %}
+                    <label for="formGroupExampleInput" class="d-block">{{ i.label }}</label>
+                    {{ i }}
+                {% endfor %}
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-secondary" type="cancel">Cancel</button>
+    </form>
 
 {% endblock %}
 
 {% block js %}
-
+    <script src="{% static 'lib/select2/js/select2.min.js' %}"></script>
+    <script src="{% static 'lib/prismjs/prism.js' %}"></script>
 {% endblock %}
 
 

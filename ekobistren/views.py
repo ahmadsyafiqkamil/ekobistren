@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.views import generic
+from .forms import PondokForm
 
 
 # Create your views here.
 
-class HomeView(generic.TemplateView):
+class HomeView(generic.edit.CreateView):
     template_name = 'content/home.html'
+    form_class = PondokForm
 
 
 class Indikator1View(generic.TemplateView):
@@ -27,8 +29,10 @@ class Indikator4View(generic.TemplateView):
 class Indikator5View(generic.TemplateView):
     template_name = 'content/indikator_5.html'
 
+
 class Indikator6View(generic.TemplateView):
     template_name = 'content/indikator_6.html'
+
 
 class Indikator7View(generic.TemplateView):
     template_name = 'content/indikator_7.html'
