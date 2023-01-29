@@ -58,7 +58,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='{% url "ekonomi:indikator7" %}'" data-dismiss="modal">Pindah
+                            onclick="simpan_data_dan_lanjut()" data-dismiss="modal">Pindah
                         ke indikator selanjutnya
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -110,7 +110,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='{% url "ekonomi:indikator7" %}'" data-dismiss="modal">Pindah
+                            onclick="simpan_status()" data-dismiss="modal">Pindah
                         ke indikator selanjutnya
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -157,6 +157,31 @@
             }
         }
 
+        function simpan_status() {
+            {#console.log("{{data.id}}")#}
+            $.ajaxSetup({
+                headers: {"X-CSRFToken": "{{ csrf_token }}"}
+            });
+            $.post("/simpan_status/", {
+                id: "{{data.id}}",
+                status: 6
+            }, function (data) {
+                window.location = "{% url 'ekonomi:evaluasi' data.id %}";
+            });
+        }
+
+        function simpan_data_dan_lanjut() {
+            {#console.log("{{data.id}}")#}
+            $.ajaxSetup({
+                headers: {"X-CSRFToken": "{{ csrf_token }}"}
+            });
+            $.post("/simpan_status/", {
+                id: "{{data.id}}",
+                status: 6
+            }, function (data) {
+                window.location = "{% url 'ekonomi:indikator7' data.id %}";
+            });
+        }
 
     </script>
 {% endblock %}

@@ -96,7 +96,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='{% url "ekonomi:indikator2" %}'" data-dismiss="modal">Pindah
+                            onclick="simpan_data_dan_lanjut()" data-dismiss="modal">Pindah
                         ke indikator selanjutnya
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -226,14 +226,26 @@
             $.ajaxSetup({
                 headers: {"X-CSRFToken": "{{ csrf_token }}"}
             });
-            $.post("/send_evaluasi/", {
+            $.post("/simpan_status/", {
                 id: "{{data.id}}",
-                status: "1"
+                status: 1
             }, function (data) {
                 window.location = "{% url 'ekonomi:evaluasi' data.id %}";
             });
         }
 
+        function simpan_data_dan_lanjut() {
+            {#console.log("{{data.id}}")#}
+            $.ajaxSetup({
+                headers: {"X-CSRFToken": "{{ csrf_token }}"}
+            });
+            $.post("/simpan_status/", {
+                id: "{{data.id}}",
+                status: 1
+            }, function (data) {
+                window.location = "{% url 'ekonomi:indikator2' data.id %}";
+            });
+        }
 
     </script>
 {% endblock %}
