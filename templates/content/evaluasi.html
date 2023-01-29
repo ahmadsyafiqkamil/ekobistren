@@ -13,8 +13,10 @@
 
     <div data-label="" class="df-example">
         evaluasi
-        {{ data.nama_pondok }}
-        {{ data.status }}
+        {{ data_pondok.nama_pondok }}
+        {% for i in data_indikator %}
+            {{ i.ciri }}
+        {% endfor %}
     </div>
 
 {% endblock %}

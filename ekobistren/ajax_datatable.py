@@ -43,4 +43,6 @@ class PondokAjaxView(AjaxDatatableView):
                 status = "Indikator 7"
 
         row['status_pondok'] = status
-        row['action'] = f"""<a href="#" class="btn btn-primary" id="add" onclick="detail('{row['pk']}');">Detail</a> """
+        row['action'] = f"""<a href="#" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Halaman Indikator</a>
+         <a href="#" class="btn btn-sm btn-primary"  onclick="evaluasi('{row['pk']}');">Halaman Evaluasi</a>
+         """

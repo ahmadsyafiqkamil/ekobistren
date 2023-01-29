@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.views import generic
 from .forms import PondokForm
 from django.urls import reverse_lazy
-from .models import pondok
+from .models import pondok, ciri_ciri
 from django.urls import reverse
 
 
@@ -106,13 +106,15 @@ class SelesaiView(generic.TemplateView):
 
         return context_data
 
+
 class EvaluasiView(generic.TemplateView):
     template_name = 'content/evaluasi.html'
 
     def get_context_data(self, **kwargs):
         context_data = super(EvaluasiView, self).get_context_data(**kwargs)
-        context_data["data"] = pondok.objects.get(id=kwargs['pk'])
-        # context_data[""]
+        context_data["data_pondok"] = pondok.objects.get(id=kwargs['pk'])
+        context_data["data_indikator"] = ciri_ciri.objects.filter(
+            indikator_id=pondok.objects.get(id=kwargs['pk']).status)
 
         return context_data
 
