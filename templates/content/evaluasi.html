@@ -12,14 +12,9 @@
     <h1>Data Pondok</h1>
 
     <div data-label="" class="df-example">
-        <a href='{% url "ekonomi:daftar_pondok" %}' class="btn btn-info btn-info">Tambah Data Pondok</a>
-        <br>
-        <br>
-        <div class="table-responsive">
-            <table id="daftar_pondok" width="100%"
-                   class="table table-striped table-bordered dt-responsive compact nowrap">
-            </table>
-        </div>
+        evaluasi
+        {{ data.nama_pondok }}
+        {{ data.status }}
     </div>
 
 {% endblock %}
@@ -32,30 +27,8 @@
     <script src="{% static 'lib/select2/js/select2.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'ajax_datatable/js/utils.js' %}"></script>
 
-    <script>
-        $(document).ready(function () {
-            AjaxDatatableViewUtils.initialize_table(
-                $('#daftar_pondok'),
-                "{% url 'ekonomi:pondok_ajax_view' %}",
-                {
-                    // extra_options (example)
-                    processing: false,
-                    autoWidth: false,
-                    full_row_select: true,
-                    scrollX: false,
-                    responsive: true
-                }, {
-                    // extra_data
-                    // ...
-                },
-            );
+    <script type="text/javascript">
 
-        });
-
-        function detail(clicked_id) {
-            console.log(clicked_id)
-            location.href = "/get_indikator/" + clicked_id;
-        }
     </script>
 {% endblock %}
 

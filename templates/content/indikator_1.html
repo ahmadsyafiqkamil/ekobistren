@@ -11,7 +11,7 @@
             <div class="col-lg">
                 <div class="pd-y-10 pd-x-20 bg-ui-01 mg-b-auto">
                     <p>Modal Usaha Produktif</p>
-                    <p>{{ pk_user }}</p>
+                    {#                    <p>{{ data.nama_pondok }}</p>#}
                     Indikator:
                     <ul>
                         <li>Modal Usaha Minimal Rp.50.000.000,-;</li>
@@ -138,8 +138,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary"
-                            onclick="window.location.href='{% url "ekonomi:indikator2" %}'" data-dismiss="modal">Pindah
-                        ke indikator selanjutnya
+                            onclick="simpan_status()" data-dismiss="modal">Menuju
+                        halaman evaluasi
                     </button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
@@ -172,7 +172,8 @@
 {% endblock %}
 
 {% block js %}
-    <script>
+    <script type="text/javascript">
+
         // Get the modal
         var modal = document.getElementById("resultModal");
 
@@ -218,6 +219,19 @@
             if (event.target === modal) {
                 modal.style.display = "none";
             }
+        }
+
+        function simpan_status() {
+            {#console.log("{{data.id}}")#}
+            $.ajaxSetup({
+                headers: {"X-CSRFToken": "{{ csrf_token }}"}
+            });
+            $.post("/send_evaluasi/", {
+                id: "{{data.id}}",
+                status: "1"
+            }, function (data) {
+                window.location = "{% url 'ekonomi:evaluasi' data.id %}";
+            });
         }
 
 
