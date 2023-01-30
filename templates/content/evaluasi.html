@@ -11,12 +11,39 @@
 {% block content %}
     <h1>Data Pondok</h1>
 
-    <div data-label="" class="df-example">
-        evaluasi
-        {{ data_pondok.nama_pondok }}
-        {% for i in data_indikator %}
-            {{ i.ciri }}
-        {% endfor %}
+    <div data-label="Evaluasi {{ data_pondok.nama_pondok }}" class="df-example">
+        {#    evaluasi#}
+        {#    {{ data_pondok.nama_pondok }}#}
+
+        <form action="" method="post" id="form-data" enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class="form-row">
+
+                <div class="form-group col-lg-12">
+
+                    {% for i in data_indikator %}
+                        <div class="form-group row">
+                            <label for="id_{{ i.pk }}" class="col-lg-2 col-form-label">{{ i.ciri }}</label>
+                            <div class="col-lg-10">
+                                <input type="text" class="form-control" id="id_{{ i.pk }}"
+                                       placeholder="Isi Hasil Evaluasi">
+                                <br>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Unggah Bukti Evaluasi</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group row mg-b-0">
+                <div class="col-sm-10">
+                    <button type="submit" id="submit" class="btn btn-primary">Submit Form</button>
+                </div>
+            </div>
+        </form>
     </div>
 
 {% endblock %}
@@ -30,8 +57,17 @@
     <script type="text/javascript" src="{% static 'ajax_datatable/js/utils.js' %}"></script>
 
     <script type="text/javascript">
-
+        $(document).ready(function () {
+            $('#submit').click(function (e) {
+                e.preventDefault();
+                var formData = $('#form-data').serialize();
+                console.log(formData)
+                $.post("{% url 'senddataview' %}", formData, function (data) {
+                    console.log(data)
+                });
+            });
+        });
     </script>
-{% endblock %}
 
+{% endblock %}
 

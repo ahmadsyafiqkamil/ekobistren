@@ -40,9 +40,15 @@ class PondokAjaxView(AjaxDatatableView):
             case 6:
                 status = "Indikator 6"
             case 7:
-                status = "Indikator 7"
+                status = "Sudah selesai melakukan evaluasi"
 
         row['status_pondok'] = status
-        row['action'] = f"""<a href="#" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Halaman Indikator</a>
+
+        if status_pondok != 7:
+            row['action'] = f"""<a href="#" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Halaman Indikator</a>
          <a href="#" class="btn btn-sm btn-primary"  onclick="evaluasi('{row['pk']}');">Halaman Evaluasi</a>
          """
+        else:
+            row['action'] = f"""<a href="#" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Halaman Indikator</a>
+                     
+                     """
