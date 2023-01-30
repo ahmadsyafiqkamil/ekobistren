@@ -8,6 +8,7 @@ import uuid
 class indikator(models.Model):
     indikator = models.CharField(max_length=200, verbose_name='Nama Indikator')
     keterangan = models.TextField(verbose_name='Keterangan')
+    kode = models.IntegerField(verbose_name="kode_indikator")
 
     def __str__(self):
         return self.indikator

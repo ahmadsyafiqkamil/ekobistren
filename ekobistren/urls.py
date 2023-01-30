@@ -21,6 +21,7 @@ urlpatterns = [
     re_path('get_indikator/(?P<pk>[-\w]*)$', get_indikator, name='get_indikator'),
 
     path('simpan_status/', simpan_status, name='simpan_status'),
+    path('simpan_evaluasi/', simpan_evaluasi, name='simpan_evaluasi'),
 
     # path('SuratAjaxView/', SuratAjaxView.as_view(), name='surat_ajax_view'),
 

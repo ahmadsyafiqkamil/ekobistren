@@ -5,6 +5,7 @@ from .forms import PondokForm
 from django.urls import reverse_lazy
 from .models import pondok, ciri_ciri
 from django.urls import reverse
+from django.db.models import Count
 
 
 # Create your views here.
@@ -139,6 +140,23 @@ def simpan_status(request):
         data_pondok = pondok.objects.get(id=id)
         data_pondok.status = status
         data_pondok.save()
+        return JsonResponse({'message': 'Data sent successfully'})
+
+
+def simpan_evaluasi(request):
+    if request.method == 'POST':
+        id_pondok = request.POST.get("id_pondok")
+        status_pondok = pondok.objects.get(id=id_pondok).status
+        total_ciri = ciri_ciri.objects.filter(indikator=status_pondok).count()
+
+        ciri = ciri_ciri.objects.filter(indikator=status_pondok)
+
+        for i in ciri:
+            uraian_evaluasi = request.POST.get(f"id_teks_{i.pk}")
+            url_file = request.FILES.get(f"id_file_{i.pk}")
+            print(uraian_evaluasi)
+            print(url_file)
+
         return JsonResponse({'message': 'Data sent successfully'})
 
 
