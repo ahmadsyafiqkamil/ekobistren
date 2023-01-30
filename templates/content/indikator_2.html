@@ -4,7 +4,7 @@
 
 {% endblock %}
 {% block content %}
-    <h1>Indikator 2</h1>
+    <h1>Fase 2</h1>
 
     <div data-label="" class="df-example">
         <div class="row">
@@ -106,7 +106,9 @@
                     <p>Mohon maaf kami belum dapat memberikan bantuan kepada pondok pesantren</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" onclick="simpan_data_dan_selesai()"
+                            data-dismiss="modal">Close
+                    </button>
                 </div>
             </div>
         </div>
@@ -163,6 +165,19 @@
                 status: 2
             }, function (data) {
                 window.location = "{% url 'ekonomi:indikator3' data.id %}";
+            });
+        }
+
+        function simpan_data_dan_selesai() {
+            {#console.log("{{data.id}}")#}
+            $.ajaxSetup({
+                headers: {"X-CSRFToken": "{{ csrf_token }}"}
+            });
+            $.post("/simpan_status/", {
+                id: "{{data.id}}",
+                status: 2
+            }, function (data) {
+                window.location = "{% url 'ekonomi:data_pondok' %}";
             });
         }
 
