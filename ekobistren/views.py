@@ -1,9 +1,11 @@
+import os
+from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views import generic
 from .forms import PondokForm
 from django.urls import reverse_lazy
-from .models import pondok, ciri_ciri
+from .models import pondok, ciri_ciri, evaluasi_pondok, file_evaluasi
 from django.urls import reverse
 from django.db.models import Count
 
@@ -146,17 +148,43 @@ def simpan_status(request):
 def simpan_evaluasi(request):
     if request.method == 'POST':
         id_pondok = request.POST.get("id_pondok")
+        obj_pondok = pondok.objects.get(id= id_pondok)
+        # print(id_pondok)
         status_pondok = pondok.objects.get(id=id_pondok).status
         total_ciri = ciri_ciri.objects.filter(indikator=status_pondok).count()
-
+        #
         ciri = ciri_ciri.objects.filter(indikator=status_pondok)
+        data = []
+        for i in ciri:
+            uraian = request.POST[f"uraian_{i.pk}"]
+            file = request.FILES.get(f"file_{i.pk}")
+            if file:
+                filename = file.name
+                filepath = os.path.join(settings.MEDIA_ROOT, filename)
+                # with open(filepath, 'wb+') as f:
+                #     for chunk in file.chunks():
+                #         f.write(chunk)
+                # file_url = os.path.join(settings.MEDIA_URL, filename)
+            else:
+                filepath = None
+            data.append({
+                'uraian': uraian,
+                'file': filepath
+            })
+        print(data)
+        evaluasi = evaluasi_pondok.objects.create(
+            pondok=obj_pondok,
+            hasil_evaluasi=data
+        )
 
         for i in ciri:
-            uraian_evaluasi = request.POST.get(f"id_teks_{i.pk}")
-            url_file = request.FILES.get(f"id_file_{i.pk}")
-            print(uraian_evaluasi)
-            print(url_file)
+            file = request.FILES[f"file_{i.pk}"]
+            file_evaluasi.objects.create(
+                evaluasi=evaluasi,
+                file=file
+            )
 
+        print(data)
         return JsonResponse({'message': 'Data sent successfully'})
 
 

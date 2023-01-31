@@ -15,7 +15,7 @@
         {#    evaluasi#}
         {#    {{ data_pondok.nama_pondok }}#}
 
-        <form action="" method="post" id="form-data" enctype='multipart/form-data'>
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-row">
 
@@ -25,12 +25,12 @@
                         <div class="form-group row">
                             <label for="id_{{ i.pk }}" class="col-lg-2 col-form-label">{{ i.ciri }}</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" name="id_teks_{{ i.pk }}"
+                                <input type="text" class="form-control" name="uraian_{{ i.pk }}"
                                        placeholder="Isi Hasil Evaluasi">
                                 <br>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="id_file_{{ i.pk }}" >
-                                    <label class="custom-file-label" for="customFile">Unggah Bukti Evaluasi</label>
+                                    <input type="file" name="file_{{ i.pk }}">
+{#                                    <label class="custom-file-label" for="customFile">Unggah Bukti Evaluasi</label>#}
                                 </div>
                             </div>
 
@@ -61,11 +61,25 @@
         $(document).ready(function () {
             $('#submit').click(function (e) {
                 e.preventDefault();
-                var formData = $('#form-data').serialize();
-                console.log(formData)
-                $.post("{% url 'ekonomi:simpan_evaluasi' %}", formData, function (data) {
-                    console.log(data)
-                });
+                var formData = new FormData();
+                formData.append('csrfmiddlewaretoken', $('input[name="csrfmiddlewaretoken"]').val());
+                formData.append('id_pondok', $('input[name="id_pondok"]').val());
+                {% for i in data_indikator %}
+                    formData.append('uraian_{{ i.pk }}', $('input[name="uraian_{{ i.pk }}"]').val());
+                    formData.append('file_{{ i.pk }}', $('input[name="file_{{ i.pk }}"]')[0].files[0]);
+
+                {% endfor %}
+                $.ajax({
+                    url: "{% url 'ekonomi:simpan_evaluasi' %}",
+                    type: 'POST',
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
             });
         });
     </script>
