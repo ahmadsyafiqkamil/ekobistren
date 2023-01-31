@@ -22,6 +22,10 @@ class DataPondok(generic.TemplateView):
     template_name = 'content/data_pondok.html'
 
 
+class DataEvaluasi(generic.TemplateView):
+    template_name = 'content/data_evaluasi.html'
+
+
 class Indikator1View(generic.TemplateView):
     template_name = 'content/indikator_1.html'
 
@@ -148,7 +152,7 @@ def simpan_status(request):
 def simpan_evaluasi(request):
     if request.method == 'POST':
         id_pondok = request.POST.get("id_pondok")
-        obj_pondok = pondok.objects.get(id= id_pondok)
+        obj_pondok = pondok.objects.get(id=id_pondok)
         # print(id_pondok)
         status_pondok = pondok.objects.get(id=id_pondok).status
         total_ciri = ciri_ciri.objects.filter(indikator=status_pondok).count()
@@ -156,11 +160,12 @@ def simpan_evaluasi(request):
         ciri = ciri_ciri.objects.filter(indikator=status_pondok)
         data = []
         for i in ciri:
+            id_ciri = request.POST[f"ciri_{i.pk}"]
             uraian = request.POST[f"uraian_{i.pk}"]
             file = request.FILES.get(f"file_{i.pk}")
             if file:
                 filename = file.name
-                filepath = os.path.join(settings.MEDIA_ROOT, filename)
+                # filepath = os.path.join(settings.MEDIA_ROOT, filename)
                 # with open(filepath, 'wb+') as f:
                 #     for chunk in file.chunks():
                 #         f.write(chunk)
@@ -168,8 +173,10 @@ def simpan_evaluasi(request):
             else:
                 filepath = None
             data.append({
+                'status_pondok': status_pondok,
+                'id_ciri': id_ciri,
                 'uraian': uraian,
-                'file': filepath
+                'file': filename
             })
         print(data)
         evaluasi = evaluasi_pondok.objects.create(

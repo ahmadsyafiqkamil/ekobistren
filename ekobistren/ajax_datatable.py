@@ -1,5 +1,19 @@
 from ajax_datatable.views import AjaxDatatableView
-from .models import pondok
+from .models import pondok, evaluasi_pondok
+
+
+class EvaluasiAjaxView(AjaxDatatableView):
+    model = evaluasi_pondok
+    code = 'evaluasi_pondok'
+    title = 'Daftar Evaluasi'
+    initial_order = [["pk", "asc"], ]
+    length_menu = [[10, 20, 50, 100, -1], [10, 20, 50, 100, 'all']]
+    search_values_separator = '+'
+
+    column_defs = [
+        # AjaxDatatableView.render_row_tools_column_def(),
+        {'name': 'id', 'visible': False, },
+    ]
 
 
 class PondokAjaxView(AjaxDatatableView):
@@ -52,3 +66,5 @@ class PondokAjaxView(AjaxDatatableView):
             row['action'] = f"""<a href="#" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Halaman Indikator</a>
                      
                      """
+
+

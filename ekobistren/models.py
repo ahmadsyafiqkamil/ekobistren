@@ -50,6 +50,7 @@ class pondok(models.Model):
 
 class evaluasi_pondok(models.Model):
     pondok = models.ForeignKey(pondok, models.CASCADE, related_name="pondok")
+    nama_pondok = models.CharField(max_length=200, verbose_name='Nama Pondok')
     hasil_evaluasi = models.JSONField(verbose_name="Hasil Evaluasi")
 
 class file_evaluasi(models.Model):

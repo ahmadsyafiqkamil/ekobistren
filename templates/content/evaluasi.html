@@ -24,13 +24,15 @@
                     {% for i in data_indikator %}
                         <div class="form-group row">
                             <label for="id_{{ i.pk }}" class="col-lg-2 col-form-label">{{ i.ciri }}</label>
+                            <input type="hidden" name="ciri_{{ i.pk }}" value="{{ i.pk }}">
+
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" name="uraian_{{ i.pk }}"
-                                       placeholder="Isi Hasil Evaluasi">
+                                       placeholder="Isi Hasil Evaluasi" required>
                                 <br>
                                 <div class="custom-file">
-                                    <input type="file" name="file_{{ i.pk }}">
-{#                                    <label class="custom-file-label" for="customFile">Unggah Bukti Evaluasi</label>#}
+                                    <input type="file" class="custom-file-input" name="file_{{ i.pk }}" required>
+                                    <label class="custom-file-label" for="customFile">Unggah Bukti Evaluasi</label>
                                 </div>
                             </div>
 
@@ -62,10 +64,10 @@
                     <p>data telah tersimpan</p>
                 </div>
                 <div class="modal-footer">
-{#                    <button type="button" class="btn btn-primary"#}
-{#                            onclick="simpan_data_dan_lanjut()" data-dismiss="modal">Pindah#}
-{#                        ke indikator selanjutnya#}
-{#                    </button>#}
+                    {#                    <button type="button" class="btn btn-primary"#}
+                    {#                            onclick="simpan_data_dan_lanjut()" data-dismiss="modal">Pindah#}
+                    {#                        ke indikator selanjutnya#}
+                    {#                    </button>#}
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -90,6 +92,7 @@
                 formData.append('csrfmiddlewaretoken', $('input[name="csrfmiddlewaretoken"]').val());
                 formData.append('id_pondok', $('input[name="id_pondok"]').val());
                 {% for i in data_indikator %}
+                    formData.append('ciri_{{ i.pk }}', $('input[name="ciri_{{ i.pk }}"]').val());
                     formData.append('uraian_{{ i.pk }}', $('input[name="uraian_{{ i.pk }}"]').val());
                     formData.append('file_{{ i.pk }}', $('input[name="file_{{ i.pk }}"]')[0].files[0]);
 

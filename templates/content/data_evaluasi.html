@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'lib/datatables.net-dt/css/jquery.dataTables.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/select2/css/select2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'ajax_datatable/css/style.css' %}" rel="stylesheet"/>
+    <link href="{% static 'lib/datatables.net-dt/css/jquery.dataTables.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <h1>Data Pondok</h1>
+
+    <div data-label="" class="df-example">
+        <div class="table-responsive">
+            <table id="daftar_evaluasi" width="100%"
+                   class="table table-striped table-bordered dt-responsive compact nowrap">
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'lib/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'lib/datatables.net-dt/js/dataTables.dataTables.min.js' %}"></script>
+    <script src="{% static 'lib/datatables.net-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js' %}"></script>
+    <script src="{% static 'lib/select2/js/select2.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'ajax_datatable/js/utils.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            AjaxDatatableViewUtils.initialize_table(
+                $('#daftar_evaluasi'),
+                "{% url 'ekonomi:EvaluasiAjaxView' %}",
+                {
+                    // extra_options (example)
+                    processing: false,
+                    autoWidth: false,
+                    full_row_select: true,
+                    scrollX: false,
+                    responsive: true
+                }, {
+                    // extra_data
+                    // ...
+                },
+            );
+
+        });
+
+        function detail(clicked_id) {
+            console.log(clicked_id)
+            location.href = "/get_indikator/" + clicked_id;
+        }
+
+        function evaluasi(id) {
+            console.log(id)
+            location.href = "/evaluasi/" + id;
+        }
+    </script>
+{% endblock %}
+
+
