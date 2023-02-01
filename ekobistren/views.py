@@ -181,6 +181,7 @@ def simpan_evaluasi(request):
         print(data)
         evaluasi = evaluasi_pondok.objects.create(
             pondok=obj_pondok,
+            nama_pondok=obj_pondok.nama_pondok,
             hasil_evaluasi=data
         )
 

@@ -1,19 +1,49 @@
 from ajax_datatable.views import AjaxDatatableView
 from .models import pondok, evaluasi_pondok
+import json
 
 
 class EvaluasiAjaxView(AjaxDatatableView):
     model = evaluasi_pondok
     code = 'evaluasi_pondok'
     title = 'Daftar Evaluasi'
-    initial_order = [["pk", "asc"], ]
+    initial_order = [["nama_pondok", "asc"], ]
     length_menu = [[10, 20, 50, 100, -1], [10, 20, 50, 100, 'all']]
     search_values_separator = '+'
 
     column_defs = [
         # AjaxDatatableView.render_row_tools_column_def(),
         {'name': 'id', 'visible': False, },
+        {'name': 'nama_pondok', 'title': "Nama Pondok", 'visible': True, },
+        {'name': 'status', 'title': "Status Evaluasi", 'visible': True, },
+        {'name': 'aksi', 'title': "Detil Evaluasi", 'visible': True, },
     ]
+
+    def customize_row(self, row, obj):
+        data = evaluasi_pondok.objects.get(id=row["pk"]).hasil_evaluasi
+        # html = ""
+        # for item in data:
+        #
+        #     html += f"<p>Status Pondok: {item['status_pondok']}</p>"
+        #     html += f"<p>ID Ciri: {item['id_ciri']}</p>"
+        #     html += f"<p>Uraian: {item['uraian']}</p>"
+        #     html += "<hr>"
+        #
+        # html += """<a href="#" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Halaman Indikator</a>"""
+        status_evaluasi = evaluasi_pondok.objects.get(pk=row['pk']).status_evaluasi
+        match status_evaluasi:
+
+            case 0:
+                status = "Belum di evaluasi"
+                html = f"""<button type="button" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Detail Evaluasi</button>"""
+            case 1:
+                status = "Sudah di evaluasi"
+                html = f"""<button type="button" class="btn btn-sm btn-primary" disabled  onclick="detail('{row['pk']}');">Detail Evaluasi</button>"""
+
+        row["status"] = status
+        row["aksi"] = html
+
+
 
 
 class PondokAjaxView(AjaxDatatableView):
@@ -58,7 +88,7 @@ class PondokAjaxView(AjaxDatatableView):
 
         row['status_pondok'] = status
 
-        if status_pondok != 7:
+        if status_pondok != 7 or status_pondok != 0:
             row['action'] = f"""<a href="#" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Halaman Indikator</a>
          <a href="#" class="btn btn-sm btn-primary"  onclick="evaluasi('{row['pk']}');">Halaman Evaluasi</a>
          """
@@ -66,5 +96,3 @@ class PondokAjaxView(AjaxDatatableView):
             row['action'] = f"""<a href="#" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Halaman Indikator</a>
                      
                      """
-
-

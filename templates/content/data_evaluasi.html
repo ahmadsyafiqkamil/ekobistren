@@ -9,7 +9,7 @@
     <link href="{% static 'lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css' %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
-    <h1>Data Pondok</h1>
+    <h1>Data Evaluasi</h1>
 
     <div data-label="" class="df-example">
         <div class="table-responsive">
@@ -49,15 +49,12 @@
 
         });
 
-        function detail(clicked_id) {
+        function detail(id_evaluasi, id_pondok) {
             console.log(clicked_id)
             location.href = "/get_indikator/" + clicked_id;
         }
 
-        function evaluasi(id) {
-            console.log(id)
-            location.href = "/evaluasi/" + id;
-        }
+
     </script>
 {% endblock %}
 
