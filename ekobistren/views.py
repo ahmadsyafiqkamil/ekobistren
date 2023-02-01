@@ -26,6 +26,31 @@ class DataEvaluasi(generic.TemplateView):
     template_name = 'content/data_evaluasi.html'
 
 
+class DetilEvaluasi(generic.TemplateView):
+    template_name = 'content/detil_evaluasi.html'
+
+    def get_context_data(self, **kwargs):
+        context_data = super(DetilEvaluasi, self).get_context_data(**kwargs)
+        # print(kwargs["pk"])
+
+        data = evaluasi_pondok.objects.get(pk=kwargs["pk"]).hasil_evaluasi
+        data = [item for item in data if 'status_pondok' not in item]
+        file = file_evaluasi.objects.filter(evaluasi=kwargs["pk"])
+        file = [item.file for item in file]
+
+        new_list = []
+
+        for i, item in enumerate(data):
+            new_item = {**item, 'file': file[i]}
+            new_list.append(new_item)
+
+        print(new_list)
+        context_data["data"] = evaluasi_pondok.objects.get(pk=kwargs["pk"])
+        context_data["data_hasil_evaluasi"] = new_list
+
+        return context_data
+
+
 class Indikator1View(generic.TemplateView):
     template_name = 'content/indikator_1.html'
 
@@ -163,6 +188,7 @@ def simpan_evaluasi(request):
             id_ciri = request.POST[f"ciri_{i.pk}"]
             uraian = request.POST[f"uraian_{i.pk}"]
             file = request.FILES.get(f"file_{i.pk}")
+            nama_indikator = ciri_ciri.objects.get(id=id_ciri).indikator
             if file:
                 filename = file.name
                 # filepath = os.path.join(settings.MEDIA_ROOT, filename)
@@ -173,11 +199,14 @@ def simpan_evaluasi(request):
             else:
                 filepath = None
             data.append({
-                'status_pondok': status_pondok,
-                'id_ciri': id_ciri,
+                'ciri': ciri_ciri.objects.get(id=id_ciri).ciri,
                 'uraian': uraian,
                 'file': filename
             })
+
+        data.append({
+            'status_pondok': status_pondok,
+        })
         print(data)
         evaluasi = evaluasi_pondok.objects.create(
             pondok=obj_pondok,
@@ -216,3 +245,16 @@ def get_indikator(request, pk):
             return redirect(reverse('ekonomi:indikator7', kwargs={'pk': pk}))
         case 7:
             return redirect(reverse('ekonomi:selesei', kwargs={'pk': pk}))
+
+
+def simpan_detil_evaluasi(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+
+        data_evaluasi = evaluasi_pondok.objects.get(id=id)
+        data_evaluasi.status_evaluasi = 1
+        data_evaluasi.save()
+        data_pondok = pondok.objects.get(id=data_evaluasi.pondok.id)
+        data_pondok.status = data_pondok.status + 1
+        data_pondok.save()
+        return JsonResponse({'message': 'Data sent successfully'})

@@ -30,6 +30,7 @@ class EvaluasiAjaxView(AjaxDatatableView):
         #     html += "<hr>"
         #
         # html += """<a href="#" class="btn btn-sm btn-primary"  onclick="detail('{row['pk']}');">Halaman Indikator</a>"""
+
         status_evaluasi = evaluasi_pondok.objects.get(pk=row['pk']).status_evaluasi
         match status_evaluasi:
 
@@ -42,8 +43,6 @@ class EvaluasiAjaxView(AjaxDatatableView):
 
         row["status"] = status
         row["aksi"] = html
-
-
 
 
 class PondokAjaxView(AjaxDatatableView):

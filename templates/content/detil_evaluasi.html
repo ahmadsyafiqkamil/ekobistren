@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block css %}
+    <link href="{% static 'lib/select2/css/select2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/ion-rangeslider/css/ion.rangeSlider.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+    <h1>Data Evaluasi {{ data.pondok.nama_pondok }}</h1>
+
+    <h3>evaluasi fase {{ data.pondok.status }}</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id_ciri</th>
+            <th>uraian</th>
+            <th>file</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data_hasil_evaluasi %}
+            <tr>
+                <td>{{ item.ciri }}</td>
+                <td>{{ item.uraian }}</td>
+                <td><a href="{{ item.file.url }}">{{ item.file }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <button class="btn btn-primary" onclick="simpan_detil_status()" type="submit">Submit</button>
+        <button class="btn btn-secondary" type="cancel">Cancel</button>
+
+    <div class="modal fade" id="resultModalSuccess" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultModalLabel">Result</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {#                    <p id="result"></p>#}
+                    <p>data telah tersimpan</p>
+                </div>
+                <div class="modal-footer">
+                    {#                    <button type="button" class="btn btn-primary"#}
+                    {#                            onclick="simpan_data_dan_lanjut()" data-dismiss="modal">Pindah#}
+                    {#                        ke indikator selanjutnya#}
+                    {#                    </button>#}
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='{% url "ekonomi:data_evaluasi" %}'" data-dismiss="modal">Kembali ke daftar evaluasi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'lib/select2/js/select2.min.js' %}"></script>
+    <script src="{% static 'lib/prismjs/prism.js' %}"></script>
+
+    <script type="text/javascript">
+        function simpan_detil_status() {
+            {#console.log("{{data.id}}")#}
+            $.ajaxSetup({
+                headers: {"X-CSRFToken": "{{ csrf_token }}"}
+            });
+            $.post("/simpan_detil_evaluasi/", {
+                id: "{{data.id}}",
+            }, function (data) {
+                $("#resultModalSuccess").modal();
+            });
+        }
+    </script>
+{% endblock %}
+
+
