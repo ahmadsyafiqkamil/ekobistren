@@ -232,19 +232,20 @@ def get_indikator(request, pk):
         case 0:
             return redirect(reverse('ekonomi:indikator1', kwargs={'pk': pk}))
         case 1:
-            return redirect(reverse('ekonomi:indikator2', kwargs={'pk': pk}))
+            return redirect(reverse('ekonomi:indikator1', kwargs={'pk': pk}))
         case 2:
-            return redirect(reverse('ekonomi:indikator3', kwargs={'pk': pk}))
+            return redirect(reverse('ekonomi:indikator2', kwargs={'pk': pk}))
         case 3:
-            return redirect(reverse('ekonomi:indikator4', kwargs={'pk': pk}))
+            return redirect(reverse('ekonomi:indikator3', kwargs={'pk': pk}))
         case 4:
-            return redirect(reverse('ekonomi:indikator5', kwargs={'pk': pk}))
+            return redirect(reverse('ekonomi:indikator4', kwargs={'pk': pk}))
         case 5:
-            return redirect(reverse('ekonomi:indikator6', kwargs={'pk': pk}))
+            return redirect(reverse('ekonomi:indikator5', kwargs={'pk': pk}))
         case 6:
-            return redirect(reverse('ekonomi:indikator7', kwargs={'pk': pk}))
+            return redirect(reverse('ekonomi:indikator6', kwargs={'pk': pk}))
         case 7:
-            return redirect(reverse('ekonomi:selesei', kwargs={'pk': pk}))
+            return redirect(reverse('ekonomi:indikator7', kwargs={'pk': pk}))
+            # return redirect(reverse('ekonomi:selesei', kwargs={'pk': pk}))
 
 
 def simpan_detil_evaluasi(request):

@@ -19,6 +19,7 @@ urlpatterns = [
     re_path('indikator7/(?P<pk>[-\w]*)$', Indikator7View.as_view(), name='indikator7'),
     re_path('selesai/(?P<pk>[-\w]*)$', SelesaiView.as_view(), name='selesei'),
     re_path('evaluasi/(?P<pk>[-\w]*)$', EvaluasiView.as_view(), name='evaluasi'),
+    re_path('get_indikator/(?P<pk>[-\w]*)$', get_indikator, name='get_indikator'),
     path('detil_evaluasi/<pk>', DetilEvaluasi.as_view(), name='detil_evaluasi'),
 
     path('simpan_status/', simpan_status, name='simpan_status'),
