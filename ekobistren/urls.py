@@ -5,10 +5,11 @@ from .ajax_datatable import PondokAjaxView, EvaluasiAjaxView
 app_name = 'ekonomi'
 urlpatterns = [
     path('daftar_pondok', DaftarPondok.as_view(), name='daftar_pondok'),
-    path('', DataPondok.as_view(), name='data_pondok'),
+    # path('', DataPondok.as_view(), name='data_pondok'),
+    path('', Home.as_view(), name='Home'),
+    path('data_evaluasi/', DataEvaluasi.as_view(), name='data_evaluasi'),
     path('PondokAjaxView/', PondokAjaxView.as_view(), name='pondok_ajax_view'),
     path('EvaluasiAjaxView/', EvaluasiAjaxView.as_view(), name='EvaluasiAjaxView'),
-    path('data_evaluasi/', DataEvaluasi.as_view(), name='data_evaluasi'),
 
     re_path('indikator1/(?P<pk>[-\w]*)$', Indikator1View.as_view(), name='indikator1'),
     re_path('indikator2/(?P<pk>[-\w]*)$', Indikator2View.as_view(), name='indikator2'),

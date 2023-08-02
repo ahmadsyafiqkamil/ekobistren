@@ -7,26 +7,39 @@ from .forms import PondokForm
 from django.urls import reverse_lazy
 from .models import pondok, ciri_ciri, evaluasi_pondok, file_evaluasi
 from django.urls import reverse
-from django.db.models import Count
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
 
-# Create your views here.
+class Home(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'content/data_pondok.html'
 
-class DaftarPondok(generic.edit.CreateView):
-    template_name = 'content/daftar_pondok.html'
-    form_class = PondokForm
-    success_url = reverse_lazy('ekonomi:data_pondok')
+    def get_template_names(self):
+        user = User.objects.get(username=self.request.user)
+        if user.is_authenticated:
+            template = ""
+            if user.groups.first().name == "admin_pondok":
+                template = 'content/data_pondok.html'
+            elif user.groups.first().name == "verifikator":
+                template = 'content/data_evaluasi.html'
 
+            return template
 
-class DataPondok(generic.TemplateView):
+class DataPondok(LoginRequiredMixin, generic.TemplateView):
     template_name = 'content/data_pondok.html'
 
 
-class DataEvaluasi(generic.TemplateView):
+class DataEvaluasi(LoginRequiredMixin, generic.TemplateView):
     template_name = 'content/data_evaluasi.html'
 
 
-class DetilEvaluasi(generic.TemplateView):
+class DaftarPondok(LoginRequiredMixin, generic.edit.CreateView):
+    template_name = 'content/daftar_pondok.html'
+    form_class = PondokForm
+    success_url = reverse_lazy('ekonomi:Home')
+
+
+class DetilEvaluasi(LoginRequiredMixin, generic.TemplateView):
     template_name = 'content/detil_evaluasi.html'
 
     def get_context_data(self, **kwargs):
@@ -51,7 +64,7 @@ class DetilEvaluasi(generic.TemplateView):
         return context_data
 
 
-class Indikator1View(generic.TemplateView):
+class Indikator1View(LoginRequiredMixin, generic.TemplateView):
     template_name = 'content/indikator_1.html'
 
     def get_context_data(self, **kwargs):
@@ -62,7 +75,7 @@ class Indikator1View(generic.TemplateView):
         return context_data
 
 
-class Indikator2View(generic.TemplateView):
+class Indikator2View(LoginRequiredMixin, generic.TemplateView):
     template_name = 'content/indikator_2.html'
 
     def get_context_data(self, **kwargs):
